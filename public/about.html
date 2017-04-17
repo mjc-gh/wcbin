@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebCryptoBin | wcbin.tech</title>
+
+    <meta charset="utf-8">
+    <meta content="text/html; charset=UTF-8'" http-equiv="Content-Type">
+    <meta content="IE=edge", http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="description" content="A static webpage for client-side encrypted archive files with the WebCrypto API">
+
+    <meta name="og:title" content="Encrypt and decrypt image files with WebCrypto">
+    <meta name="twitter:title" content="Encrypt and decrypt image files with WebCrypto">
+    <meta name="twitter:creator" content="@mikeycgto">
+
+    <link rel="stylesheet" type="text/css" href="styles.css">
+  </head>
+  <body>
+    <nav>
+      <strong><a href="/">WebCryptoBin</a></strong>
+      <a href="/">Encrypt</a>
+      <a href="/decrypt.html">Decrypt</a>
+    </nav>
+    <section id="about">
+      <h1>About</h1>
+      <p>
+        This web page is a <strong>toy</strong>.
+      </p>
+      <p>
+        It was built to demonstrate some use cases for the
+        <a href="https://w3c.github.io/webcrypto/Overview.html">WebCrypto API</a>.
+        The API is available in every major browser and provides web developers
+        with powerful cryptographic tools.
+      </p>
+      <p>
+        Leveraging these APIs correctly can be difficult and one must exercise
+        caution when using cryptography.
+      </p>
+      <h2 id="usage">Usage</h2>
+      <p>
+        The Encrypt page lets you select one or more image files. After
+        selecting the desired file(s), enter a passphrase and click the
+        'Encrypt' button. The page should prompt a file download, allowing you
+        to save an encrypted blob file (the file extension is .bin).
+      </p>
+      <p>
+        The Decrypt page lets you select an encrypted bin file and a
+        passphrase. When 'Decrypt' is clicked, the page will attempt to decrypt
+        and render the images selected on the Encrypt page.
+      </p>
+      <p>
+        The selected files are not uploaded and all the encryption and
+        decryption is handled directly within the browser.
+      </p>
+      <h2 id="known-issues">Known Issues</h2>
+      <p>
+        Downloads may incorrectly be reported as failed on the Chrome mobile
+        browser. Additionally, you may have to carefully navigate your mobile
+        file picker to find the .bin downloads on the Decrypt page.
+      </p>
+      <p>
+        Please report any other issues to
+        <a href="https://github.com/mikeycgto/wcbin/issues/new">Github</a>.
+      </p>
+      <h2 id="how-it-words">How it works</h2>
+      <p>
+        If you try the Encrypt page, you'll notice it has an input for a
+        passphrase. The passphrase is used as the input to a
+        <a href="https://en.wikipedia.org/wiki/Key_derivation_function">
+          Key Derivation Function</a> called
+        <a href="https://en.wikipedia.org/wiki/PBKDF2">PBKDF2</a>. From the
+        weak passphrase, PBKDF2 will iteratively use a hash function to
+        accomplish something called
+        <a href="https://en.wikipedia.org/wiki/Key_stretching">
+          Key Stretching</a>. The process aims to make an otherwise weak
+        passphrase stronger by increasing the computational time needed to test
+        a given key. Key stretching is a process developers should already be
+        familiar with when using <a href="https://en.wikipedia.org/wiki/Bcrypt">
+          bcrypt</a> or <a href="https://en.wikipedia.org/wiki/Scrypt">
+          scrypt</a> to store passwords in a database.
+      </p>
+      <p>
+        PBKDF2 also accepts a
+        <a href="https://en.wikipedia.org/wiki/Salt_(cryptography)">salt</a>,
+        which is a piece of random data. This data is used to prevent
+        dictionary lookup attacks. The Encrypt page will generate a new salt,
+        16 bytes in length, every time the button is pressed.
+      </p>
+      <p>
+        From PBKDF2 we derive a stronger key we can use for further
+        cryptographic operations.
+      </p>
+      <p>
+        The Encrypt page uses the
+        <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">
+          AES</a>
+        <a href="https://en.wikipedia.org/wiki/Symmetric-key_algorithm">
+          symmetric key algorithm</a> to encrypt the
+        selected files. This algorithm is a type of
+        <a href="https://en.wikipedia.org/wiki/Block_cipher">block cipher</a>
+        which can be run in many
+        <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation">
+          modes of operation</a>. The WebCrypto API alone supports four
+        different modes. The different modes, however, do not provide the same
+        security features.
+      </p>
+      <p>
+        The Encrypt page uses the AES algorithm in a mode called
+        <a href="https://en.wikipedia.org/wiki/Galois/Counter_Mode">
+          Galois/Counter Mode (GCM)</a>. This mode provides a feature known as
+        <a href="https://en.wikipedia.org/wiki/Authenticated_encryption">
+          Authenticated Encryption</a>. In addition to protecting the confidentiality
+        of the data, this mode also protects the integrity of the data in a
+        single cryptographic operation. Protecting integrity an important
+        property for a modern cipher. Cryptography experts have discussed
+        Authenticated Encryption in general and why it's necessary in detail
+        <a href="https://moxie.org/blog/the-cryptographic-doom-principle/">here</a>
+        and
+        <a href="https://blog.cryptographyengineering.com/2012/05/19/how-to-choose-authenticated-encryption/">
+          here</a>.
+      </p>
+      <p>
+        This website was build by
+        <a href="https://michaeljcoyne.me/">Michael Coyne</a> and it is hosted
+        through <a href="https://firebase.google.com/">Firebase</a>. The HTML pages,
+        styles, and JavaScript are all open-sourced and licensed under the
+        <a href="https://choosealicense.com/licenses/mit/">MIT License</a>. The
+        source code is available on Michael's
+        <a href="http://github.com/mikeycgto/wcbin">Github</a>. Feel free to
+        use the code to experiment, learn, and appropriately integrate
+        cryptographic operations into your applications.
+      </p>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+body { font-size:16px }
+body a { color:inherit }
+body a:visited { color:inherit }
+
+body { font-family:monospace }
+body * { font-family:inherit }
+
+nav { height:1.2em; line-height:1.2em }
+nav > a { float:right; margin-left:1em }
+nav strong a { text-decoration:none }
+nav, section:not(#results) { max-width:400px; width:100%; margin:0 auto }
+
+section#about { max-width:720px; padding:1em 0 2em }
+
+#download { visibility:hidden }
+
+#form input { display:block; margin:1em 0; width:100% }
+#form button { display:block; margin:0 auto }
+
+#alert { margin:1em 0; color:red; display:block; height:2em; line-height:1.2em }
+
+#results { margin-top:1em }
+#results img { border:0; max-width:80%; display:block; margin:0 auto }
+
+body.unsupported section { display:none }
+body.unsupported:after { content: 'Your browser is not supported!'; color:red; display:block; padding:2em 0; text-align:center }

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebCryptoBin | wcbin.tech</title>
+
+    <meta charset="utf-8">
+    <meta content="text/html; charset=UTF-8'" http-equiv="Content-Type">
+    <meta content="IE=edge", http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="description" content="A static webpage for client-side encrypted archive files with the WebCrypto API">
+
+    <meta name="og:title" content="Encrypt and decrypt image files with WebCrypto">
+    <meta name="twitter:title" content="Encrypt and decrypt image files with WebCrypto">
+    <meta name="twitter:creator" content="@mikeycgto">
+
+    <link rel="stylesheet" type="text/css" href="styles.css">
+  </head>
+  <body>
+    <nav>
+      <strong><a href="/">WebCryptoBin</a></strong>
+      <a href="/about.html">About</a>
+      <a href="/">Encrypt</a>
+    </nav>
+
+    <section>
+      <p id="alert"></p>
+
+      <form id="form">
+        <input type="file" multiple="true" name="file" accept="application/octet-stream">
+        <input type="text" name="passphrase" placeholder="Shared passphrase (8 character minimum)" minlength="8" autocomplete="off" required>
+
+        <button id="submit">Decrypt</button>
+      </form>
+    </section>
+
+    <section id="results"></section>
+
+    <script src="lib.js?v=1" integrity="sha384-ajHPKYa9LhzS1zgcAWxRXRPuR64rTFvteZjFLTtTsaW3GqaBBW4b5exuSPjjICNF"></script>
+    <script>
+      checkBrowserSupport();
+
+      document.getElementById('form').addEventListener('submit', halt, false);
+      document.getElementById('submit').addEventListener('click', reset, false);
+      document.getElementById('submit').addEventListener('click', decrypt, false);
+    </script>
+  </body>
+</html>
